@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import movies$ from './api/movies';
+import useMovieStore from './store/useMovieStore';
+import VideoList from './components/VideoList';
 import './App.css';
 
-function App() {
-  return <div>Home</div>;
-}
+export default function App() {
+  const setMovies = useMovieStore((state) => state.setMovies);
 
-export default App;
+  useEffect(() => {
+    movies$.then(setMovies);
+  }, [setMovies]);
+
+  return (
+    <div className="App">
+      <VideoList />
+    </div>
+  );
+}
